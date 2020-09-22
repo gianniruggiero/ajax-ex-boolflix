@@ -13,6 +13,10 @@ body {
   color: red;
 }
 
+.wrap_logo img {
+  height: 30px;
+}
+
 .wrapper {
   width: 1281px;
   height: calc(100vh - 100px);
@@ -23,9 +27,18 @@ body {
   overflow-y: auto;
 }
 
+.wrap_search {
+  display: flex;
+  align-items: center;
+}
+
+.wrap_logo {
+  margin-right: 50px;
+}
 .wrap_top {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 1281px;
   height: 70px;
   position: fixed;

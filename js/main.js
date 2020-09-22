@@ -31,6 +31,7 @@ $(document).ready(function() {
         "query": searchMovie,
         "language": "it-IT",
         "include_adult": false,
+        "page": 1,
       },
       "success": function(data) {
         // chiama la funzione per stampare a video i risultati della ricerca ritornati dalla chiamata ajax
