@@ -4,16 +4,16 @@ $(document).ready(function() {
   $(".btn_search").click(function(){
     // controlla che l'inpunt di ricerca non sia vuota
     if (!$(".input_search").val() =="" ) {
-      // recupera stringa inserita dall'utente per la ricerca
+      // recupera stringa inserita dall'utente nell'input per la ricerca
       renderMovie($(".input_search").val());
     }
   });
 
   // ENTER digitato da tastiera
   $(".input_search").keyup(function(e){
-    // controlla che sia stato digitato invio e l'inpunt di ricerca non sia vuota
+    // controlla che sia stato digitato enter e l'inpunt di ricerca non sia vuota
     if (e.keyCode == 13 && !$(".input_search").val() =="" ) {
-      // recupera stringa inserita dall'utente per la ricerca
+      // recupera stringa inserita dall'utente nell'input per la ricerca
       renderMovie($(".input_search").val());
     }
   });
@@ -21,7 +21,7 @@ $(document).ready(function() {
   // funzione che fa la ricerca dei titoli contenenti la stringa passata in arogmento
   // e stampa a video i risultati della ricerca
   function renderMovie(searchMovie) {
-    // chiamata Ajax
+    // chiamata AJAX all'API
     $.ajax({
       "url":"https://api.themoviedb.org/3/search/movie",
       "method": "GET",
@@ -31,13 +31,13 @@ $(document).ready(function() {
         "query": searchMovie,
         "language": "it-IT",
         "include_adult": false,
-        "page": 1,
       },
       "success": function(data) {
         // chiama la funzione per stampare a video i risultati della ricerca ritornati dalla chiamata ajax
         printMovie(data.results);
-        console.log(data.total_results);
+        // stampa sulla pagina il numero totale di film trovati
         $("#total_titles").text(data.total_results);
+        // posiziona in alto la scroll-bar del listato
         $(".wrapper").scrollTop (0);
       },
       "error": function(err) {
@@ -46,30 +46,21 @@ $(document).ready(function() {
     });
   };
 
-  // stampa a video il contentuo dell'oggetto movies passato in argomento
+  // funzione che stampa a video il contentuo dell'oggetto movies passato in argomento
   function printMovie(movies) {
-    // elimina la lista già stampata a video
+    // cancella, eliminando i <li> della lista già stampata a video
     $("#list-movies li").remove();
     // seleziona  il template da utilizzare
     var source = $("#movie-template").html();
     // compila il template selezionato con Handlebars
     var template = Handlebars.compile(source);
-    // stampa il dettaglio di ogni film (oggetto)
+    // stampa il dettaglio di ogni film presente nell'oggetto {movies}
     for (var i = 0; i < movies.length; i++) {
-      var title = movies[i].title;
-      var titleOriginal = movies [i].original_title;
-      var lang = movies [i].original_language;
-      var vote = movies [i].vote_average;
-      // manipola il contenuto delle chiavi dell'oggetto
-      var context = {
-        "title": title,
-        "title_original": titleOriginal,
-        "lang": lang,
-        "vote": vote
-      }
-      // prepara il codice HTML da iniettare
+      // manipola il contenuto delle chiavi dell'oggetto con il risultato della chiamta API
+      var context = movies[i];
+      // prepara il codice HTML da iniettare nel DOM
       var html = template (context);
-      // inserisce il codice html manipolato nel DOM
+      // inietta nel DOM il codice html manipolato
       $("#list-movies").append(html);
     }
   }
