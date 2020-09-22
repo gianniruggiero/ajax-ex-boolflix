@@ -15,13 +15,18 @@
 <body>
 
   <div class="wrapper">
-    <!-- ricerca titoli film -->
-    <input class="input_search" type="text" name="film_search" value="" placeholder="Che film vuoi vedere?">
-    <button id="#btn_search" class="btn btn_search" type="button" name="button">CERCA</button>
-    <!-- ricerca titoli film -->
-    <!-- lista dei film trovati dalla ricerca -->
-    <ul id="list-movies"></ul>
-    <!-- /lista dei film trovati dalla ricerca -->
+    <div class="wrap_top">
+      <!-- ricerca titoli film -->
+      <input class="input_search" type="text" name="film_search" value="" placeholder="Che film cerchi?">
+      <button id="#btn_search" class="btn btn_search" type="button" name="button">CERCA</button>
+      <h3>Titoli trovati: <span id="total_titles"></span></h3>
+      <!-- ricerca titoli film -->
+    </div>
+    <main>
+      <!-- lista dei film trovati dalla ricerca -->
+      <ul id="list-movies"></ul>
+      <!-- /lista dei film trovati dalla ricerca -->
+    </main>
   </div>
 
 
@@ -30,7 +35,7 @@
     <li>
       <h3>TITOLO: {{title}}</h3>
       <h4>Titolo originale: {{title_original}}</h4>
-      <p>Lingua: {{lang}}</p>
+      <p>Lingua: {{language}}</p>
       <p>Media voto: <strong>{{vote}}</strong></p>
     </li>
   </script>

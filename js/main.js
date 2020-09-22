@@ -35,6 +35,9 @@ $(document).ready(function() {
       "success": function(data) {
         // chiama la funzione per stampare a video i risultati della ricerca ritornati dalla chiamata ajax
         printMovie(data.results);
+        console.log(data.total_results);
+        $("#total_titles").text(data.total_results);
+        $(".wrapper").scrollTop (0);
       },
       "error": function(err) {
         alert ("ATTENZIONE: errore chiamata ajax!");
