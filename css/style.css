@@ -6,14 +6,26 @@
 
 body {
   font-family: 'DM Sans', sans-serif;
-  padding: 50px;
+  background-color: lightgrey;
 }
 
-li {
+.wrapper {
+  width: 1281px;
+  height: calc(100vh - 100px);
+  margin: 50px auto;
+  background-color: white;
+  padding: 50px;
+  box-shadow: 2px 2px 20px black;
+  overflow-y: auto;
+}
+
+#list-movies li {
   padding: 30px 0px;
 }
 
+
 .input_search {
+  padding: 5px;
   height: 30px;
   width: 250px;
 }

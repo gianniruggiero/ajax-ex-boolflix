@@ -14,12 +14,16 @@
 </head>
 <body>
 
-  <input class="input_search" type="text" name="film_search" value="" placeholder="Che film vuoi vedere?">
-  <button id="#btn_search" class="btn btn_search" type="button" name="button">CERCA</button>
+  <div class="wrapper">
+    <!-- ricerca titoli film -->
+    <input class="input_search" type="text" name="film_search" value="" placeholder="Che film vuoi vedere?">
+    <button id="#btn_search" class="btn btn_search" type="button" name="button">CERCA</button>
+    <!-- ricerca titoli film -->
+    <!-- lista dei film trovati dalla ricerca -->
+    <ul id="list-movies"></ul>
+    <!-- /lista dei film trovati dalla ricerca -->
+  </div>
 
-
-  <!-- lista dei film trovati dalla ricerca -->
-  <ul id="list-movies"></ul>
 
   <!-- TEMPLATE per il film -->
   <script id="movie-template" type="text/x-handlebars-template">

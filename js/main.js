@@ -2,8 +2,8 @@ $(document).ready(function() {
 
   // CLICK sul pulsante Cerca
   $(".btn_search").click(function(){
+    // recupera stringa inserita dall'utente per la ricerca
     var searchMovie = $(".input_search").val();
-    console.log(searchMovie);
     // chiamata Ajax
     $.ajax({
       "url":"https://api.themoviedb.org/3/search/movie",
@@ -13,17 +13,20 @@ $(document).ready(function() {
         "api_key": "a550c2dd96e81e76d012966315a202be",
         "query": searchMovie,
         "language": "it-IT",
+        "include_adult": false,
       },
       "success": function(data) {
-        // chiama la funzione per stampare a video i risultati della ricerca
+        // chiama la funzione per stampare a video i risultati della ricerca ritornati dalla chiamata ajax
         renderMovie(data.results);
       },
       "error": function(err) {
         alert ("ATTENZIONE: errore chiamata ajax!");
       }
     });
-
   });
+
+
+
 
   // funzione che stampa a video i risultati della ricerca che viene passata in argomento
   function renderMovie(movies) {
