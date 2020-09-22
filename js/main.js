@@ -1,9 +1,26 @@
 $(document).ready(function() {
 
-  // CLICK sul pulsante Cerca
+  // CLICK event sul pulsante Cerca
   $(".btn_search").click(function(){
-    // recupera stringa inserita dall'utente per la ricerca
-    var searchMovie = $(".input_search").val();
+    // controlla che l'inpunt di ricerca non sia vuota
+    if (!$(".input_search").val() =="" ) {
+      // recupera stringa inserita dall'utente per la ricerca
+      renderMovie($(".input_search").val());
+    }
+  });
+
+  // ENTER digitato da tastiera
+  $(".input_search").keyup(function(e){
+    // controlla che sia stato digitato invio e l'inpunt di ricerca non sia vuota
+    if (e.keyCode == 13 && !$(".input_search").val() =="" ) {
+      // recupera stringa inserita dall'utente per la ricerca
+      renderMovie($(".input_search").val());
+    }
+  });
+
+  // funzione che fa la ricerca dei titoli contenenti la stringa passata in arogmento
+  // e stampa a video i risultati della ricerca
+  function renderMovie(searchMovie) {
     // chiamata Ajax
     $.ajax({
       "url":"https://api.themoviedb.org/3/search/movie",
@@ -17,27 +34,22 @@ $(document).ready(function() {
       },
       "success": function(data) {
         // chiama la funzione per stampare a video i risultati della ricerca ritornati dalla chiamata ajax
-        renderMovie(data.results);
+        printMovie(data.results);
       },
       "error": function(err) {
         alert ("ATTENZIONE: errore chiamata ajax!");
       }
     });
-  });
+  };
 
-
-
-
-  // funzione che stampa a video i risultati della ricerca che viene passata in argomento
-  function renderMovie(movies) {
-    // ripulisce la lista già stampata a video
+  // stampa a video il contentuo dell'oggetto movies passato in argomento
+  function printMovie(movies) {
+    // elimina la lista già stampata a video
     $("#list-movies li").remove();
-
-    // seleziona per il template da utilizzare
+    // seleziona  il template da utilizzare
     var source = $("#movie-template").html();
     // compila il template selezionato con Handlebars
     var template = Handlebars.compile(source);
-
     // stampa il dettaglio di ogni film (oggetto)
     for (var i = 0; i < movies.length; i++) {
       var title = movies[i].title;
@@ -57,7 +69,5 @@ $(document).ready(function() {
       $("#list-movies").append(html);
     }
   }
-
-
 
 });
