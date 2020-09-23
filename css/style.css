@@ -13,10 +13,19 @@ body {
   color: red;
 }
 
+.wrap_top span {
+  color: white;
+}
+
 .wrap_logo img {
   height: 30px;
 }
 
+.wrap_search_results {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .wrapper {
   width: 1281px;
   height: calc(100vh - 100px);

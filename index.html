@@ -24,7 +24,10 @@
         <!-- ricerca titoli film -->
         <input class="input_search" type="text" name="film_search" value="" placeholder="Che film cerchi?">
         <button id="#btn_search" class="btn btn_search" type="button" name="button">CERCA</button>
-        <h3>Film trovati: <span id="total_titles"></span></h3>
+        <div class="wrap_search_results">
+          <h3>Ricerca: <span id="searched_title"></span></h3>
+          <h3>Titoli trovati: <span id="total_titles"></span></h3>
+        </div>
         <!-- ricerca titoli film -->
       </div>
       <div class="wrap_logo">
@@ -41,11 +44,11 @@
   <!-- TEMPLATE per il film -->
   <script id="title-template" type="text/x-handlebars-template">
     <li>
-      <h3>{{title}}</h3>
-      <p>Titolo originale: <em>{{original_title}}</em></p>
+      <h3>{{title}}{{name}}</h3>
+      <p>Titolo originale: <em>{{original_title}}{{original_name}}</em></p>
       <div class="wrap_lingua">
         <p>Lingua: <strong>{{original_language}}</strong></p>
-        <img class="ico_flag" src="{{lang_flag}}" alt="">
+        <img class="ico_flag" src="{{url_flag}}" alt="">
       </div>
       <div class="wrap_vote">
         <span>Media voto: </span>{{{vote_average}}}
