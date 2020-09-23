@@ -25,6 +25,8 @@ $(document).ready(function() {
   $(".input_search").keyup(function(e){
     // controlla che sia stato digitato enter e l'inpunt di ricerca non sia vuota
     if (e.keyCode == 13 && !$(".input_search").val() =="" ) {
+      // cancella, eliminando i <li> della lista già stampata a video
+      $("#list-movies li").remove();
       // recupera stringa inserita dall'utente nell'input per la ricerca
       renderMovie($(".input_search").val());
     }
@@ -61,8 +63,8 @@ $(document).ready(function() {
 
   // funzione che stampa a video il contentuo dell'oggetto movies passato in argomento
   function printMovie(movies) {
-    // cancella, eliminando i <li> della lista già stampata a video
-    $("#list-movies li").remove();
+    // cancella la lista della precedente ricerca, svuota inpunt box di ricerca
+    resetSearch();
     // seleziona  il template da utilizzare
     var source = $("#movie-template").html();
     // compila il template selezionato con Handlebars
@@ -71,14 +73,12 @@ $(document).ready(function() {
     for (var i = 0; i < movies.length; i++) {
       var voteTitle = Math.ceil(movies[i].vote_average / 2);
       var voteTitleStars = voteInStars(voteTitle)
-      console.log(movies[i].vote_average + " - " + voteTitle);
-
       // manipola il contenuto delle chiavi dell'oggetto con il risultato della chiamta API
       var context = {
         "title": movies[i].title,
         "original_title": movies[i].original_title,
         "original_language": movies[i].original_language,
-        "vote_average": voteTitle + " / " + voteTitleStars,
+        "vote_average": voteTitleStars,
       };
       // prepara il codice HTML da iniettare nel DOM
       var html = template (context);
@@ -89,7 +89,6 @@ $(document).ready(function() {
 
   // funzione che riceve in argomento un numero intero da 0 a 5 e
   // ritorna una stringa con corripondenti stelle in fontawesome
-
   function voteInStars(vote) {
     var star = "<i class='fas fa-star'></i>";
     var noStar = "<i class='far fa-star'></i>";
@@ -113,9 +112,13 @@ $(document).ready(function() {
       case 5:
         return star + star + star + star + star;
     }
+  };
+
+  function resetSearch() {
+    // cancella, eliminando i <li> della lista già stampata a video
+    $("#list-movies li").remove();
+    // cancella il testo nell'input di ricerca
+    $(".input_search").val() ==""
   }
-
-
-
 
 });
