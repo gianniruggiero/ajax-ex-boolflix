@@ -4,11 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- FONTAWESOME -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <!-- GOOGLE FONTS -->
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,700;1,500;1,700&display=swap" rel="stylesheet">
+  <!-- HANDLEBARS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw==" crossorigin="anonymous"></script>
+  <!-- AJAX -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://momentjs.com/downloads/moment.js"></script>
-  <!-- <script src="https://momentjs.com/downloads/moment-with-locales.js"></script> -->
+  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
   <title>Boolflix</title>
 </head>
@@ -40,11 +44,12 @@
       <h3>{{title}}</h3>
       <p>Titolo originale: <em>{{original_title}}</em></p>
       <p>Lingua: <strong>{{original_language}}</strong></p>
-      <p>Media voto: <strong>{{vote_average}}</strong></p>
+      <p>Media voto:</p><p>{{vote_average}}</p>>
     </li>
   </script>
   <!-- /TEMPLATE per il film -->
 
+  <!-- JS -->
   <script src="js/main.js" charset="utf-8"></script>
 </body>
 </html>
