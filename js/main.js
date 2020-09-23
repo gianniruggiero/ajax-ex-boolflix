@@ -39,6 +39,7 @@ $(document).ready(function() {
       );
       // stampa sulla pagina il numero totale di film trovati
       $("#total_titles").text(totalTitles);
+      totalTitles = 0;
     }
   });
 
@@ -91,7 +92,7 @@ $(document).ready(function() {
         printMovie(data.results, templateType);
         // stampa sulla pagina il numero totale di film trovati
         totalTitles = totalTitles + data.total_results;
-        // console.log(totalTitles);
+        console.log(totalTitles);
         // posiziona in alto la scroll-bar del listato
         $(".wrapper").scrollTop (0);
       },
