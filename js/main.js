@@ -73,12 +73,18 @@ $(document).ready(function() {
     for (var i = 0; i < movies.length; i++) {
       var voteTitle = Math.ceil(movies[i].vote_average / 2);
       var voteTitleStars = voteInStars(voteTitle)
+      var originalLang = movies[i].original_language;
+      var langFlag = langInFlag(movies[i].original_language);
+      if (!langFlag == "") {
+        originalLang = "";
+      }
       // manipola il contenuto delle chiavi dell'oggetto con il risultato della chiamta API
       var context = {
         "title": movies[i].title,
         "original_title": movies[i].original_title,
-        "original_language": movies[i].original_language,
+        "original_language": originalLang,
         "vote_average": voteTitleStars,
+        "lang_flag": langFlag,
       };
       // prepara il codice HTML da iniettare nel DOM
       var html = template (context);
@@ -90,9 +96,13 @@ $(document).ready(function() {
   // funzione che riceve in argomento un numero intero da 0 a 5 e
   // ritorna una stringa con corripondenti stelle in fontawesome
   function voteInStars(vote) {
+    // assegna le icone con fontawesome
+    // stella piena
     var star = "<i class='fas fa-star'></i>";
+    // stella vuota
     var noStar = "<i class='far fa-star'></i>";
 
+    // definisce la stringa da ritornare in base al numero del voto in argomento
     switch (vote) {
       case 0:
         return noStar + noStar + noStar + noStar + noStar;
@@ -114,11 +124,45 @@ $(document).ready(function() {
     }
   };
 
+  // funzione che riceve in argomento la stringa della lingua e
+  // ritorna una stringa con l'indirizzo dell'immagine della bandiera da visualizzare
+  function langInFlag(lang) {
+    switch (lang) {
+      case "it":
+        return "img/it.png";
+        break;
+      case "en":
+        return "img/en.png";
+        break;
+      case "fr":
+        return "img/fr.png";;
+        break;
+      case "de":
+        return "img/de.png";
+        break;
+      case "pt":
+        return "img/pt.png";
+        break;
+      case "es":
+        return "img/es.png";
+        break;
+      case "nl":
+        return "img/nl.png";
+        break;
+      case "ja":
+        return "img/ja.png";
+        break;
+      default:
+        return "";
+    }
+  };
+
+  // funzione che cancella la lista a video e svuota l'input della ricerca
   function resetSearch() {
     // cancella, eliminando i <li> della lista già stampata a video
     $("#list-movies li").remove();
     // cancella il testo nell'input di ricerca
-    $(".input_search").val() ==""
+    $(".input_search").val(""); 
   }
 
 });

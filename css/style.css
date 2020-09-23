@@ -86,3 +86,17 @@ body {
   background-color: #efefef;
   cursor: pointer;
 }
+
+.ico_flag {
+  margin-left: 5px;
+  width: 25px;
+}
+
+.wrap_lingua {
+  display: flex;
+  align-items: center;
+}
+
+.fas {
+  color: #daaf37;
+}
