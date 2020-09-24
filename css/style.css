@@ -4,6 +4,17 @@
   margin: 0;
 }
 
+header {
+  position: fixed;
+  z-index: 10;
+}
+
+main {
+  margin-top: 90px;
+  margin-left: 10px;
+  padding: 20px;
+}
+
 body {
   font-family: 'DM Sans', sans-serif;
   background-color: #efefef;
@@ -51,25 +62,26 @@ body {
   justify-content: space-between;
   width: 1281px;
   height: 90px;
-  position: fixed;
-  z-index: 10;
   background-color: #000;
   padding-left: 50px;
   border: 1px solid darkgrey;
 }
 
-#list-movies li {
+
+#list-movies li, #list-tv li {
   padding: 15px 0px;
 }
 
-#list-movies {
-  margin-top: 90px;
+#list-movies, #list-tv {
   margin-left: 50px;
 }
 
-.main {
-  margin-top: 70px;
-  height: calc(100% - 70px);
+#tit_film {
+  margin: 20px 0px 0px 50px;
+}
+
+#tit_tv {
+  margin: 20px 0px 0px 50px;
 }
 
 .input_search {

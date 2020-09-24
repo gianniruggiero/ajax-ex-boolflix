@@ -15,16 +15,17 @@ $(document).ready(function() {
       // (MOVIE) ricerca nel DB il titolo digitato in input, con la chiamta API specificata in url, stampa con il template passato in argomento
       renderTitles(
         titleToSearch,
-        "https://api.themoviedb.org/3/search/movie"
+        "https://api.themoviedb.org/3/search/movie",
+        "movie"
       );
       // (TV) ricerca nel DB il titolo digitato in input, con la chiamta API specificata in url, stampa con il template passato in argomento
       renderTitles(
         titleToSearch,
-        "https://api.themoviedb.org/3/search/tv"
+        "https://api.themoviedb.org/3/search/tv",
+        "tv"
       );
       // stampa sulla pagina il numero totale di film trovati
       $("#total_titles").text(totalTitles);
-
     }
   });
 
@@ -41,19 +42,21 @@ $(document).ready(function() {
       // (MOVIE) ricerca nel DB il titolo digitato in input, con la chiamta API specificata in url, stampa con il template passato in argomento
       renderTitles(
         titleToSearch,
-        "https://api.themoviedb.org/3/search/movie"
+        "https://api.themoviedb.org/3/search/movie",
+        "movie"
       );
       // (TV) ricerca nel DB il titolo digitato in input, con la chiamta API specificata in url, stampa con il template passato in argomento
       renderTitles(
         titleToSearch,
-        "https://api.themoviedb.org/3/search/tv"
+        "https://api.themoviedb.org/3/search/tv",
+        "tv"
       );
     }
   });
 
   // funzione che fa la ricerca dei titoli contenenti la stringa passata in arogmento
   // chiamando API endpoint passato in argomento e stampa a video i risultati della ricerca
-  function renderTitles(searchTitle, urlApi) {
+  function renderTitles(searchTitle, urlApi, typeTemplate) {
     // chiamata AJAX all'API
     $.ajax({
       "url": urlApi,
@@ -67,7 +70,7 @@ $(document).ready(function() {
       },
       "success": function(data) {
         // chiama la funzione per stampare a video i risultati della ricerca ritornati dalla chiamata ajax
-        printMovie(data.results);
+        printMovie(data.results, typeTemplate);
         // aggiorna variabile del totale dei titoli trovati
         totalTitles = totalTitles + data.total_results;
         // stampa sulla pagina il numero totale di film trovati
@@ -84,63 +87,45 @@ $(document).ready(function() {
   };
 
   // funzione che stampa a video il contentuo dell'oggetto movies passato in argomento
-  function printMovie(titles) {
+  function printMovie(titles, templateToPrint) {
     // seleziona  il template da utilizzare
     var source = $("#title-template").html();
     // compila il template selezionato con Handlebars
     var template = Handlebars.compile(source);
     // stampa il dettaglio di ogni film presente nell'oggetto {movies}
     for (var i = 0; i < titles.length; i++) {
+      // definisce le variabili temporanee utilizzate dal ciclo For
+      var tempTitle, tempOriginalTitle, tempSelector, tempTitleType;
 
+      // a seconda del tipo di ricernca, definisce che chiavi utilizzare per riempire i placeholder del template
+      switch (templateToPrint) {
+        case "movie":
+          tempTitle = titles[i].title;
+          tempTitleType = "(film)";
+          tempOriginalTitle = titles[i].original_title;
+          tempSelector = $("#list-movies");
+          $("#tit_film").text("Film");
+          break;
+        case "tv":
+          tempTitle = titles[i].name;
+          tempTitleType = "(serie Tv)";
+          tempOriginalTitle = titles[i].original_name;
+          tempSelector = $("#list-tv");
+          $("#tit_tv").text("Serie TV");
+          break;
+      };
       // manipola il contenuto delle chiavi dell'oggetto con il risultato della chiamta API
       var context = {
-        "title": titles[i].title,
-        "name": titles[i].name,
-        "original_title": titles[i].original_title,
-        "original_name": titles[i].original_name,
+        "title": tempTitle,
+        "title_type": tempTitleType,
+        "original_title": tempOriginalTitle,
         "vote_average": voteInStars(titles[i].vote_average),
         "url_flag": langInFlag(titles[i].original_language),
       };
       // prepara il codice HTML da iniettare nel DOM
       var html = template (context);
       // inietta nel DOM il codice html manipolato
-      $("#list-movies").append(html);
-
-      // ................
-      // TEST con .onload
-      // ................
-      // var originalLang = "";
-      // var langFlag = "img/" + titles[i].original_language + ".png";
-      // var testImage = new Image();
-      // testImage.src = langFlag;
-      // testImage.onload = function() {
-      //   console.log("immagine esiste");
-      //   originalLang = "franco";
-      //   console.log("originalLang: " + originalLang);
-      // }
-      // testImage.onerror = function() {
-      //     // image did not load
-      //     console.log("immagine non esiste");
-      //     langFlag = "";
-      // }
-      // ................
-
-      // ................
-      // OPZIONE con switch per gestire chiavi diverse nel template
-      // ................
-      // definisce che chiavi utilizzare di title[] per riempire il template
-      // switch (templateToPrint) {
-      //   case "movie":
-      //     var tempTitle = titles[i].title + " (film)";
-      //     var tempOriginalTitle = titles[i].original_title;
-      //     break;
-      //   case "tv":
-      //   var tempTitle = titles[i].name  + " (serie Tv)";
-      //   var tempOriginalTitle = titles[i].original_name;
-      //   break;
-      // }
-      // ................
-
+      tempSelector.append(html);
     }
   };
 
@@ -180,8 +165,14 @@ $(document).ready(function() {
   function resetSearch() {
     // cancella, eliminando i <li> della lista già stampata a video
     $("#list-movies li").remove();
+    // cancella, eliminando i <li> della lista già stampata a video
+    $("#list-tv li").remove();
     // cancella il testo nell'input di ricerca
     $(".input_search").val("");
+    // cancella la label Film prima del corrispondente listato
+    $("#tit_film").text("");
+    // cancella la label Serie TV prima del corrispondente listato
+    $("#tit_tv").text("");
   }
 
 });
