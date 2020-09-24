@@ -95,20 +95,20 @@ $(document).ready(function() {
     // stampa il dettaglio di ogni film presente nell'oggetto {movies}
     for (var i = 0; i < titles.length; i++) {
       // definisce le variabili temporanee utilizzate dal ciclo For
-      var tempTitle, tempOriginalTitle, tempSelector, tempTitleType, tempPath;
+      var tempTitle, tempOriginalTitle, tempSelector, tempTitleType, tempPath, tempNoPoster;
 
       // a seconda del tipo di ricernca, definisce che chiavi utilizzare per riempire i placeholder del template
       switch (templateToPrint) {
         case "movie":
           tempTitle = titles[i].title;
-          tempTitleType = "(film)";
+          tempTitleType = "Film";
           tempOriginalTitle = titles[i].original_title;
           tempSelector = $("#list-movies");
           $("#tit_film").text("Film");
           break;
         case "tv":
           tempTitle = titles[i].name;
-          tempTitleType = "(serie Tv)";
+          tempTitleType = "Serie TV";
           tempOriginalTitle = titles[i].original_name;
           tempSelector = $("#list-tv");
           $("#tit_tv").text("Serie TV");
@@ -117,8 +117,10 @@ $(document).ready(function() {
 
       if (titles[i].poster_path){
         tempPath = "https://image.tmdb.org/t/p/w342/" + titles[i].poster_path;
+        tempNoPoster = "";
       } else {
         tempPath = "img/no_poster.png";
+        tempNoPoster = " active";
       }
 
       // manipola il contenuto delle chiavi dell'oggetto con il risultato della chiamta API
@@ -130,6 +132,7 @@ $(document).ready(function() {
         "url_flag": langInFlag(titles[i].original_language),
         "url_poster": tempPath,
         "overview": titles[i].overview,
+        "class_noposter": tempNoPoster,
       };
       // prepara il codice HTML da iniettare nel DOM
       var html = template (context);

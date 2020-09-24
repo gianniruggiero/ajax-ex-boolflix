@@ -148,7 +148,7 @@ body {
 .film-poster {
   font-size: 0px;
   width: 100%;
-  height: 526px;
+  height: 520px;
   /* overflow: hidden; */
   /* height: 100%; */
   /* width: calc(100% - 120px) / 3); */
@@ -168,8 +168,40 @@ body {
   display: block;
 }
 
-.title-box:hover .film-poster{
+.title-box:hover .wrap_poster{
   display: none;
   /* opacity: 0;
   height: 0px; */
+}
+
+.wrap_poster {
+  position: relative;
+}
+
+.title-noposter {
+  display: none;
+  background-color: #e30914;
+  font-size: 20px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%
+}
+
+.title-noposter p {
+  text-align: center;
+}
+
+.title-type {
+  background-color: red;
+  font-size: 20px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+}
+
+.active {
+  display: block;
 }

@@ -52,8 +52,20 @@
   <script id="title-template" type="text/x-handlebars-template">
     <!-- wrapper generale del film / serieTV -->
     <div class="title-box">
-      <!-- poster del film / serieTV -->
-      <img class="film-poster" src={{url_poster}} alt="poster">
+
+      <!-- wrapper poster del film / serieTV -->
+      <div class="wrap_poster">
+        <div class="title-noposter{{class_noposter}}"><p>{{title}}</p></div>
+        <div class="title-type"><p>{{title_type}}</p></div>
+
+
+        <!-- poster del film / serieTV -->
+        <img class="film-poster" src={{url_poster}} alt="poster">
+        <!-- /poster del film / serieTV -->
+
+      </div>
+      <!-- /wrapper poster del film / serieTV -->
+
       <!-- info di dettaglio del film / serieTV -->
       <div class="film-info">
         <p><strong>Titolo: </strong>{{title}}</p>
