@@ -25,7 +25,7 @@ $(document).ready(function() {
         "tv"
       );
       // stampa sulla pagina il numero totale di film trovati
-      $("#total_titles").text(totalTitles);
+      // $("#total_titles").text(totalTitles);
     }
   });
 
@@ -95,7 +95,7 @@ $(document).ready(function() {
     // stampa il dettaglio di ogni film presente nell'oggetto {movies}
     for (var i = 0; i < titles.length; i++) {
       // definisce le variabili temporanee utilizzate dal ciclo For
-      var tempTitle, tempOriginalTitle, tempSelector, tempTitleType;
+      var tempTitle, tempOriginalTitle, tempSelector, tempTitleType, tempPath;
 
       // a seconda del tipo di ricernca, definisce che chiavi utilizzare per riempire i placeholder del template
       switch (templateToPrint) {
@@ -115,11 +115,12 @@ $(document).ready(function() {
           break;
       };
 
-      // if (isNull(titles[i].poster_path)){
-      //   console.log("path url nulla!");
-      // }
+      if (titles[i].poster_path){
+        tempPath = "https://image.tmdb.org/t/p/w342/" + titles[i].poster_path;
+      } else {
+        tempPath = "img/no_poster.png";
+      }
 
-      console.log((titles[i].poster_path).length);
       // manipola il contenuto delle chiavi dell'oggetto con il risultato della chiamta API
       var context = {
         "title": tempTitle,
@@ -127,7 +128,7 @@ $(document).ready(function() {
         "original_title": tempOriginalTitle,
         "vote_average": voteInStars(titles[i].vote_average),
         "url_flag": langInFlag(titles[i].original_language),
-        "url_poster": "https://image.tmdb.org/t/p/w342/" + titles[i].poster_path,
+        "url_poster": tempPath,
         "overview": titles[i].overview,
       };
       // prepara il codice HTML da iniettare nel DOM
@@ -171,10 +172,10 @@ $(document).ready(function() {
 
   // funzione che cancella la lista a video e svuota l'input della ricerca
   function resetSearch() {
-    // cancella, eliminando i <li> della lista già stampata a video
-    $("#list-movies li").remove();
-    // cancella, eliminando i <li> della lista già stampata a video
-    $("#list-tv li").remove();
+    // cancella la lista FILM già stampata a video
+    $("#list-movies").html("");
+    // cancella la lista SERIE TV già stampata a video
+    $("#list-tv").html("");
     // cancella il testo nell'input di ricerca
     $(".input_search").val("");
     // cancella la label Film prima del corrispondente listato
