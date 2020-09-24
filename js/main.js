@@ -121,6 +121,7 @@ $(document).ready(function() {
         "original_title": tempOriginalTitle,
         "vote_average": voteInStars(titles[i].vote_average),
         "url_flag": langInFlag(titles[i].original_language),
+        "url_poster": "https://image.tmdb.org/t/p/w185/" + titles[i].poster_path,
       };
       // prepara il codice HTML da iniettare nel DOM
       var html = template (context);

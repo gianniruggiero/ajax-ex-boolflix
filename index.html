@@ -51,7 +51,8 @@
   <!-- TEMPLATE per il film -->
   <script id="title-template" type="text/x-handlebars-template">
     <li>
-      <h3>{{title}}</h3><span>{{title_type}}</span>
+      <h3>{{title}}</h3><p>{{title_type}}</p>
+      <img class="poster" src={{url_poster}} alt="poster">
       <p>Titolo originale: <em>{{original_title}}{{original_name}}</em></p>
       <div class="wrap_lingua">
         <p>Lingua:</p>

@@ -126,3 +126,9 @@ body {
 .wrap_vote .fas {
   color: #daaf37;
 }
+
+.poster {
+  text-align: left;
+  margin: 5px 0px;
+
+}
