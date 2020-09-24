@@ -72,6 +72,7 @@ body {
 #list-movies, #list-tv {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 #tit_film {
@@ -126,9 +127,11 @@ body {
 }
 
 .title-box {
-  width: calc(100% - 120px) / 3);
+  width: 342;
+  height: 535px;
   border: 1px solid white;
-  margin: 20px;
+  margin-bottom: 20px;
+  /* margin: 20px; */
   color: #fff;
 }
 
@@ -138,20 +141,22 @@ body {
 
 .title-box:hover .film-info{
   display: block;
-  cursor: pointer;
 }
 
 .title-box:hover .film-poster{
   display: none;
+  /* opacity: 0;
+  height: 0px; */
 }
 
 .film-info {
-  width: 100%;
+  padding: 50px 15px;
+  width: 342px;
   display: none;
 }
 
 .film-poster {
-  width: 100%;
+  width: 342px;
   /* width: calc(100% - 120px) / 3); */
   /* text-align: left;
   margin: 5px 0px; */

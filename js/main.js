@@ -114,6 +114,11 @@ $(document).ready(function() {
           $("#tit_tv").text("Serie TV");
           break;
       };
+
+      // if (isNull(titles[i].poster_path)){
+      //   console.log("path url nulla!");
+      // }
+
       console.log((titles[i].poster_path).length);
       // manipola il contenuto delle chiavi dell'oggetto con il risultato della chiamta API
       var context = {
