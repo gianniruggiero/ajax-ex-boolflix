@@ -114,6 +114,7 @@ $(document).ready(function() {
           $("#tit_tv").text("Serie TV");
           break;
       };
+      console.log((titles[i].poster_path).length);
       // manipola il contenuto delle chiavi dell'oggetto con il risultato della chiamta API
       var context = {
         "title": tempTitle,
@@ -121,7 +122,8 @@ $(document).ready(function() {
         "original_title": tempOriginalTitle,
         "vote_average": voteInStars(titles[i].vote_average),
         "url_flag": langInFlag(titles[i].original_language),
-        "url_poster": "https://image.tmdb.org/t/p/w185/" + titles[i].poster_path,
+        "url_poster": "https://image.tmdb.org/t/p/w342/" + titles[i].poster_path,
+        "overview": titles[i].overview,
       };
       // prepara il codice HTML da iniettare nel DOM
       var html = template (context);
