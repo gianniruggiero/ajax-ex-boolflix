@@ -97,13 +97,18 @@ body {
 }
 
 .ico_flag {
-  margin-left: 5px;
+  /* margin-left: 5px; */
   width: 25px;
 }
-
 .wrap_lingua {
   display: flex;
   align-items: center;
+}
+
+.lingua_flag {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
 }
 
 .wrap_vote .fas {
