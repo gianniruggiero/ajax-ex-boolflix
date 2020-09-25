@@ -4,32 +4,45 @@
   margin: 0;
 }
 
-.wrapper {
-  width: 1281px;
-  height: calc(100vh);
-  margin: 0px auto;
-  background-color: #434343;
-  box-shadow: 2px 2px 20px black;
-  overflow-y: scroll;
-}
-
-
-header {
-  /* margin: 0px auto; */
-  position: fixed;
-  z-index: 10;
-  width: 1265px;
-}
-
-main {
-  margin-top: 90px;
-  padding: 10px opx;
-  /* margin-left: 10px; */
-}
-
 body {
   font-family: 'DM Sans', sans-serif;
   background-color: #efefef;
+}
+
+.wrapper {
+  width: 100%;
+  /* height: calc(100vh - 20px); */
+  margin: 10px auto;
+  box-shadow: 2px 2px 20px black;
+  background-color: red;
+  /* padding-bottom: 37px; */
+  /* overflow-y: scroll; */
+}
+
+.wrap_top {
+  position: fixed;
+  top: 0px;
+  z-index: 10;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #000;
+  border: 1px solid darkgrey;
+}
+
+.wrap_main {
+  margin-top: 90px;
+  /* height: calc(100% - 90px); */
+  /* padding: 10px 0px; */
+  /* overflow-y: scroll; */
+  background-color: #434343;
+  /* margin-left: 10px; */
+}
+
+header {
+  /* margin: 0px auto; */
 }
 
 .wrap_top h3, .wrap_top span {
@@ -42,6 +55,7 @@ body {
 
 .wrap_logo img {
   height: 30px;
+  /* margin-right: calc((100% - 1038px) / 6); */
 }
 
 .wrap_search_results {
@@ -53,21 +67,13 @@ body {
 .wrap_search {
   display: flex;
   align-items: center;
+  margin: calc((100% - 1038px) / 6);
 }
 
 .wrap_logo {
-  margin-right: 50px;
+  margin-right: calc((100% - 1038px) / 6);
 }
-.wrap_top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 90px;
-  width: 100%;
-  background-color: #000;
-  padding-left: 50px;
-  border: 1px solid darkgrey;
-}
+
 
 #list-movies, #list-tv {
   display: flex;
@@ -128,11 +134,17 @@ body {
 }
 
 .title-box {
-  width: 346;
+  width: 346px;
   height: 530px;
   border: 2px solid white;
-  margin: 37px;
-  /* margin: 20px; */
+  margin-top: calc((100% - 1038px) / 12);
+  margin-bottom: calc((100% - 1038px) / 12);
+  margin-left: calc((100% - 1038px) / 6);
+  margin-right: calc((100% - 1038px) / 6);
+
+  /* margin-bottom: 0px; */
+
+  /* margin: 37px; */
   color: #fff;
 }
 
