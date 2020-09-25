@@ -69,16 +69,28 @@ $(document).ready(function() {
         "include_adult": false,
       },
       "success": function(data) {
-        // chiama la funzione per stampare a video i risultati della ricerca ritornati dalla chiamata ajax
-        printMovie(data.results, typeTemplate);
-        // aggiorna variabile del totale dei titoli trovati
-        totalTitles = totalTitles + data.total_results;
-        // stampa sulla pagina il numero totale di film trovati
-        $("#total_titles").text(totalTitles);
-        // stampa sulla pagina al stringa ricercata i input search
+
+        // stampa sulla pagina la stringa ricercata in input search
+        $(".hai_cercato").addClass("active");
         $("#searched_title").text(searchTitle);
-        // posiziona in alto la scroll-bar del listato
-        $(".wrapper").scrollTop (0);
+
+        if (data.total_results == 0) {
+          $(".titoli_trovati").addClass("active");
+          // stampa sulla pagina il numero totale di film trovati
+          $("#total_titles").text("nessun titolo trovato");
+        } else {
+          // chiama la funzione per stampare a video i risultati della ricerca ritornati dalla chiamata ajax
+          printMovie(data.results, typeTemplate);
+          // aggiorna variabile del totale dei titoli trovati
+          totalTitles = totalTitles + data.total_results;
+          // stampa sulla pagina il numero totale di film trovati
+          $(".titoli_trovati").addClass("active");
+          // stampa sulla pagina il numero totale di film trovati
+          $("#total_titles").text(totalTitles);
+          // posiziona in alto la scroll-bar del listato
+          $(".wrapper").scrollTop (0);
+        };
+
       },
       "error": function(err) {
         alert ("ATTENZIONE: errore chiamata ajax!");
@@ -186,5 +198,6 @@ $(document).ready(function() {
     // cancella la label Serie TV prima del corrispondente listato
     $("#tit_tv").text("");
   }
+
 
 });
