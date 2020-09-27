@@ -1,65 +1,39 @@
 $(document).ready(function() {
 
+  // dichiara variabile globale del totale dei titoli trovati
   var totalTitles = 0;
+
+  // imposta stile di sfondo del wrap_top a seconda della posizione della scroll-bar
+  document.body.onscroll = function(){
+    if (document.body.scrollTop > 55 || document.documentElement.scrollTop > 55) {
+      $(".wrap_top").css("background", "linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0.8)");
+     } else {
+       $(".wrap_top").css("background", "linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0)");
+     };
+  };
 
   // CLICK event sul pulsante Cerca
   $(".btn_search").click(function(){
     // controlla che l'inpunt di ricerca non sia vuota
     if (!$(".input_search").val() =="" ) {
-      // resetta variabile del numero di titoli caricati, che viene stampato a video dopo la ricerca
-      totalTitles = 0;
-      // recupera stringa inserita dall'utente nell'input per la ricerca
-      var titleToSearch = $(".input_search").val();
-      // cancella la lista della precedente ricerca, svuota il campo input del search
-      resetSearch()
-      // (MOVIE) ricerca nel DB il titolo digitato in input, con la chiamta API specificata in url, stampa con il template passato in argomento
-      renderTitles(
-        titleToSearch,
-        "https://api.themoviedb.org/3/search/movie",
-        "movie"
-      );
-      // (TV) ricerca nel DB il titolo digitato in input, con la chiamta API specificata in url, stampa con il template passato in argomento
-      renderTitles(
-        titleToSearch,
-        "https://api.themoviedb.org/3/search/tv",
-        "tv"
-      );
-      // stampa sulla pagina il numero totale di film trovati
-      // $("#total_titles").text(totalTitles);
+      titlesSearchPrint();
     }
   });
 
   // ENTER digitato da tastiera
   $(".input_search").keyup(function(e){
-    // resetta variabile del numero di titoli caricati, che viene stampato a video dopo la ricerca
-    totalTitles = 0;
     // controlla che sia stato digitato enter e l'inpunt di ricerca non sia vuota
     if (e.keyCode == 13 && !$(".input_search").val() =="" ) {
-      // recupera stringa inserita dall'utente nell'input per la ricerca
-      var titleToSearch = $(".input_search").val();
-      // cancella la lista della precedente ricerca, svuota il campo input del search
-      resetSearch()
-      // (MOVIE) ricerca nel DB il titolo digitato in input, con la chiamta API specificata in url, stampa con il template passato in argomento
-      renderTitles(
-        titleToSearch,
-        "https://api.themoviedb.org/3/search/movie",
-        "movie"
-      );
-      // (TV) ricerca nel DB il titolo digitato in input, con la chiamta API specificata in url, stampa con il template passato in argomento
-      renderTitles(
-        titleToSearch,
-        "https://api.themoviedb.org/3/search/tv",
-        "tv"
-      );
+      titlesSearchPrint();
     }
   });
 
   // funzione che fa la ricerca dei titoli contenenti la stringa passata in arogmento
   // chiamando API endpoint passato in argomento e stampa a video i risultati della ricerca
-  function renderTitles(searchTitle, urlApi, typeTemplate) {
+  function renderTitles(searchTitle, typeTemplate) {
     // chiamata AJAX all'API
     $.ajax({
-      "url": urlApi,
+      "url": "https://api.themoviedb.org/3/search/" + typeTemplate,
       "method": "GET",
       // passa alla chiamata Ajax le chiavi e la Query
       "data": {
@@ -75,20 +49,24 @@ $(document).ready(function() {
         $("#searched_title").text(searchTitle);
 
         if (data.total_results == 0) {
-          $(".titoli_trovati").addClass("active");
-          // stampa sulla pagina il numero totale di film trovati
-          $("#total_titles").text("nessun titolo trovato");
+          if (screen.width > 768) {
+            $(".titoli_trovati").addClass("active");
+            // stampa sulla pagina il numero totale di film trovati
+            $("#total_titles").text("nessun titolo trovato");
+          } else {
+            $(".esito_ricerca").addClass(" active");
+          }
         } else {
-          // chiama la funzione per stampare a video i risultati della ricerca ritornati dalla chiamata ajax
-          printMovie(data.results, typeTemplate);
-          // aggiorna variabile del totale dei titoli trovati
-          totalTitles = totalTitles + data.total_results;
-          // stampa sulla pagina il numero totale di film trovati
-          $(".titoli_trovati").addClass("active");
-          // stampa sulla pagina il numero totale di film trovati
-          $("#total_titles").text(totalTitles);
-          // posiziona in alto la scroll-bar del listato
-          $(".wrapper").scrollTop (0);
+            // chiama la funzione per stampare a video i risultati della ricerca ritornati dalla chiamata ajax
+            printMovie(data.results, typeTemplate);
+            // aggiorna variabile del totale dei titoli trovati
+            totalTitles = totalTitles + data.total_results;
+            // posiziona in alto la scroll-bar del listato
+            $(".wrapper").scrollTop (0);
+            // stampa sulla pagina il numero totale di film trovati
+            $(".titoli_trovati").addClass("active");
+            // stampa sulla pagina il numero totale di film trovati
+            $("#total_titles").text(totalTitles);
         };
 
       },
@@ -107,7 +85,7 @@ $(document).ready(function() {
     // stampa il dettaglio di ogni film presente nell'oggetto {movies}
     for (var i = 0; i < titles.length; i++) {
       // definisce le variabili temporanee utilizzate dal ciclo For
-      var tempTitle, tempOriginalTitle, tempSelector, tempTitleType, tempPath, tempNoPoster;
+      var tempTitle, tempOriginalTitle, tempSelector, tempTitleType, tempPath, tempNoPoster, tempOverview;
 
       // a seconda del tipo di ricernca, definisce che chiavi utilizzare per riempire i placeholder del template
       switch (templateToPrint) {
@@ -135,6 +113,13 @@ $(document).ready(function() {
         tempNoPoster = " active";
       }
 
+      if (titles[i].overview == ""){
+        tempOverview = "";
+      } else {
+        tempOverview = "<strong>Overview: </strong>" + (titles[i].overview);
+
+      }
+
       // manipola il contenuto delle chiavi dell'oggetto con il risultato della chiamta API
       var context = {
         "title": tempTitle,
@@ -143,7 +128,7 @@ $(document).ready(function() {
         "vote_average": voteInStars(titles[i].vote_average),
         "url_flag": langInFlag(titles[i].original_language),
         "url_poster": tempPath,
-        "overview": titles[i].overview,
+        "overview": tempOverview,
         "class_noposter": tempNoPoster,
       };
       // prepara il codice HTML da iniettare nel DOM
@@ -197,7 +182,21 @@ $(document).ready(function() {
     $("#tit_film").text("");
     // cancella la label Serie TV prima del corrispondente listato
     $("#tit_tv").text("");
+    // nasconde H3 per avviso Nessun titolo trovato
+    $(".esito_ricerca").removeClass(" active");
   }
 
+  function titlesSearchPrint() {
+    // resetta variabile del numero di titoli caricati, che viene stampato a video dopo la ricerca
+    totalTitles = 0;
+    // recupera stringa inserita dall'utente nell'input per la ricerca
+    var titleToSearch = $(".input_search").val();
+    // cancella la lista della precedente ricerca, svuota il campo input del search
+    resetSearch()
+    // ricerca titolo digitato in input, con endpoint della chiamata API specificata in argomento
+    renderTitles(titleToSearch, "movie");
+    // ricerca titolo digitato in input, con endpoint della chiamata API specificata in argomento
+    renderTitles(titleToSearch, "tv");
+  }
 
 });

@@ -21,7 +21,7 @@
     <div class="wrap_top">
       <div class="wrap_search">
         <!-- ricerca titoli film -->
-        <input class="input_search" type="text" name="film_search" value="" placeholder="Cosa vuoi vedere?">
+        <input class="input_search" type="text" name="film_search" value="" placeholder="Film, Serie TV">
         <button id="#btn_search" class="btn btn_search" type="button" name="button">CERCA</button>
         <div class="wrap_search_results">
           <h3 class="hai_cercato">Hai cercato: <span id="searched_title"></span></h3>
@@ -30,17 +30,17 @@
         <!-- ricerca titoli film -->
       </div>
       <div class="wrap_logo">
-        <img src="img/boolflix_logo.png" alt="logo boolflix">
+        <img class="logo_max" src="img/boolflix_logo.png" alt="logo boolflix">
+        <img class="logo_min" src="img/b_logo.png" alt="logo boolflix">
       </div>
     </div>
 
     <div class="wrap_main">
-      <!-- <h2 id="tit_film"></h2> -->
+      <h3 class="esito_ricerca">Nessun titolo trovato</h3>
       <!-- lista dei film trovati dalla ricerca -->
       <div id="list-movies"></div>
       <!-- /lista dei film trovati dalla ricerca -->
       <!-- lista dei film trovati dalla ricerca -->
-      <!-- <h2 id="tit_tv"></h2> -->
       <div id="list-tv"></div>
       <!-- /lista dei film trovati dalla ricerca -->
     </div>
@@ -51,10 +51,11 @@
   <script id="title-template" type="text/x-handlebars-template">
     <!-- wrapper generale del film / serieTV -->
     <div class="title-box">
+      <!-- indica la categoria del titolo (Film, SerieTv...) -->
+      <div class="title-type"><p>{{title_type}}</p></div>
       <!-- wrapper poster del film / serieTV -->
       <div class="wrap_poster">
         <div class="title-noposter{{class_noposter}}"><p>{{title}}</p></div>
-        <div class="title-type"><p>{{title_type}}</p></div>
         <!-- poster del film / serieTV -->
         <img class="film-poster" src={{url_poster}} alt="poster">
         <!-- /poster del film / serieTV -->
@@ -72,12 +73,12 @@
         <!-- /voto con stellette -->
         <!-- bandiera lingua originale -->
         <div class="wrap_lingua">
-          <p>Lingua:</p>
+          <p><strong>Lingua:</strong></p>
           <div class="lingua_flag">{{{url_flag}}}</div>
         </div>
         <!-- /bandiera lingua originale -->
         <!-- testo overview -->
-        <p class="overview"><strong>Overview: </strong>{{overview}}</p>
+        <p class="overview">{{{overview}}}</p>
         <!-- /testo overview -->
       </div>
       <!-- /info di dettaglio del film / serieTV -->
