@@ -11,6 +11,8 @@ body {
 
 .wrapper {
   /* width: 100%; */
+  min-height: calc(100vh - 90px);
+  background-image: linear-gradient(to bottom, #434343 , black);
   min-width: 450px;
   padding-bottom: 30px;
 }
@@ -68,11 +70,11 @@ body {
 }
 
 #list-movies {
-  background-image: linear-gradient(to bottom, #434343 , black);
+  /* background-image: linear-gradient(to bottom, #434343 , black); */
 }
 
 #list-tv {
-  background-image: linear-gradient(to bottom, black, #434343);
+  /* background-image: linear-gradient(to bottom, black, #434343); */
 }
 
 .input_search {
@@ -201,7 +203,6 @@ body {
   font-size: 14px;
   font-weight: 700;
 }
-
 
 .logo_min {
   display: none;
